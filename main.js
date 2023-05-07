@@ -1,20 +1,37 @@
+// var indexcell = 0;
+// var contentcell = 0;
+// var colorcell = "";
 const turn = ['a'];
 var gamer = '';
+const myboard = ["1","2","3","4","5","6","7","8","9"];
 
-fillgameboard();
-gameboard ();
-function fillgameboard (){
-    const myboard = ["1","2","3","4","5","6","7","8","9"];
-    var board = document.querySelector('.board1'); // this one get the dom div to add the news gameboard cells
-    board.style.setProperty('--grid-rows', 3);    
-    board.style.setProperty('--grid-cols', 3);
-    for (let i = 0; i < 9; i++) {              //this one create the gameboard   
+creategameboard()
+gameboard ()
+
+function creategameboard (){
+  var board = document.querySelector('.board1'); // this one get the dom div to add the news gameboard cells
+  board.style.setProperty('--grid-rows', 3);    
+  board.style.setProperty('--grid-cols', 3);
+  for (let i = 0; i < 9; i++) {              //this one create the gameboard   
     var cell = document.createElement('div');
-    cell.classList.add('grid-item'); // div class for every gameboard cell
-    cell.textContent = myboard[i];  // fill every cell with the array myboard
-    cell.style.color = "red";
-    board.appendChild(cell); 
+    cell.classList.add('grid-item'); // div class for every gameboard cell  
+    board.appendChild(cell);
+    // cell.textContent = myboard[i];  // fill every cell with the array myboard  <------------change this line !!!!!!
+    // cell.style.color = "red";
+    // indexcell = i;
+    // contentcell = i+1;
+    // colorcell = "red";
+    fillgameboard (i, i+1, "red");
   }
+}
+
+function fillgameboard (indexcell, contentcell, colorcell) { //fill the gameboar with myboard array which has updated information  
+  var cell = document.getElementsByClassName('grid-item'); // gets each gameboard cell
+  cell[indexcell].textContent = contentcell;
+  cell[indexcell].style.color = colorcell;
+  // console.log("inside fill " + indexcell)
+  // console.log("inside fill " + contentcell)
+  // console.log( cell)
 }
 function gameboard () {
   var button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
@@ -24,18 +41,20 @@ function gameboard () {
       turn.push('a');
       console.log("turn length xxx " + turn.length)
       if(turn.length % 2 == 0) {
-        e.target.innerHTML = 'X';
-        e.target.style.color = "black"; 
+        fillgameboard (i, "X", "blue");
+        // e.target.innerHTML = 'X';
+        // e.target.style.color = "black"; 
         myboard[i] = 'X';
         gamer = 'X';
         e.target.style.pointerEvents = "none"; 
       } else {
-        e.target.innerHTML = 'O';
-        e.target.style.color = "black"; 
+        fillgameboard (i, "O", "blue");
+        // e.target.innerHTML = 'O';
+        // e.target.style.color = "black"; 
         myboard[i] = 'O';
         gamer = 'O';
         e.target.style.pointerEvents = "none";
-        e.target.style.color = "black"; 
+        // e.target.style.color = "black"; 
       }
       console.log("myboard " + myboard)
       winner(gamer);
@@ -77,6 +96,4 @@ function alertwinner(){
 }
 function restart(){
   console.log("inside restart");
-  fillgameboard();
-  
-}
+} 
