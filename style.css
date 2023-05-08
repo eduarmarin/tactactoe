@@ -1,40 +1,86 @@
 body{
-    background-color: whitesmoke;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 :root {
-    --grid-cols: auto;
-    --grid-rows: auto;
-  }
-  .container {
-    width:auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  .board1 {            /* board style */
-    display: grid;
-    justify-content: center;
-    grid-template-rows: repeat(var(--grid-rows), auto);
-    grid-template-columns: repeat(var(--grid-cols), auto);
-    row-gap: 4px;
-    border: 1px solid gray;
-  }
-  .grid-item { 
-    background-color:lightcyan; 
-    /* color:lightcyan;  */
-    width: 60px;
-    height: 50px; 
-    border: 1px solid gray;
-    margin: 5px; 
-    /* padding:; */
-    gap: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  --grid-cols: auto;
+  --grid-rows: auto;
+}
+.container {
+  width:auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: white;
+}
+.board1 {            /* board style */
+  display: grid;
+  justify-content: center;
+  grid-template-rows: repeat(var(--grid-rows), auto);
+  grid-template-columns: repeat(var(--grid-cols), auto);
+  /* row-gap: 1px; */
+  /* border: 1px solid gray; */
+  width: 100%;
+  box-shadow: rgba(166, 158, 158, 0.35) 0px 5px 15px;
+}
+.grid-item { 
+  background-color:lightcyan; 
+  /* color:lightcyan;  */
+  width: 100px;
+  height: 80px; 
+  border: 1px solid gray;
+  /* margin: 1px;  */
+  /* padding:; */
+  /* gap: 1px; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.controls{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+.gamer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-width: 50%;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: white;
+  transition: 100ms;
+}
+.x {
+  border-radius: 8px 0px 0px 8px;;
+}
+.o {
+  border-radius: 0px 8px 8px 0px;;
+}
+.restart{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  background-color: white;
+  margin: 5px;
+  transition: 100ms;
+}  
+.restart:hover, .gamer:hover {
+  background-color: rgb(230, 230, 206);
+  scale: 1.05;
+}

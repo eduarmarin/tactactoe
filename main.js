@@ -1,69 +1,49 @@
-// var indexcell = 0;
-// var contentcell = 0;
-// var colorcell = "";
-const turn = ['a'];
+var turn = ['a'];
 var gamer = '';
-const myboard = ["1","2","3","4","5","6","7","8","9"];
+var myboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 creategameboard()
-gameboard ()
+gameboard()
+gamerop()
 
-function creategameboard (){
+function creategameboard (){ //this one create the gameboard 
   var board = document.querySelector('.board1'); // this one get the dom div to add the news gameboard cells
   board.style.setProperty('--grid-rows', 3);    
   board.style.setProperty('--grid-cols', 3);
-  for (let i = 0; i < 9; i++) {              //this one create the gameboard   
+  for (let i = 0; i < 9; i++) {                
     var cell = document.createElement('div');
     cell.classList.add('grid-item'); // div class for every gameboard cell  
     board.appendChild(cell);
-    // cell.textContent = myboard[i];  // fill every cell with the array myboard  <------------change this line !!!!!!
-    // cell.style.color = "red";
-    // indexcell = i;
-    // contentcell = i+1;
-    // colorcell = "red";
-    fillgameboard (i, i+1, "red");
+    fillgameboard (i, i+1, "red", "pointer");
   }
 }
-
-function fillgameboard (indexcell, contentcell, colorcell) { //fill the gameboar with myboard array which has updated information  
+function fillgameboard (indexcell, contentcell, colorcell, pointecell) { //display x or o on the gameboar
   var cell = document.getElementsByClassName('grid-item'); // gets each gameboard cell
   cell[indexcell].textContent = contentcell;
   cell[indexcell].style.color = colorcell;
-  // console.log("inside fill " + indexcell)
-  // console.log("inside fill " + contentcell)
-  // console.log( cell)
+  cell[indexcell].style.pointerEvents = pointecell;
 }
-function gameboard () {
+function gameboard () { // select x or o depend on gamer choose
   var button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
-  console.log("button lenght " + button.length);
   for (let i = 0; i < 9; i++) {
     button[i].addEventListener('click', function (e) { // on click change to X or O depend on turn
       turn.push('a');
-      console.log("turn length xxx " + turn.length)
       if(turn.length % 2 == 0) {
-        fillgameboard (i, "X", "blue");
-        // e.target.innerHTML = 'X';
-        // e.target.style.color = "black"; 
+        fillgameboard (i, "X", "blue", "none");
         myboard[i] = 'X';
-        gamer = 'X';
-        e.target.style.pointerEvents = "none"; 
+        gamer = 'X'; 
       } else {
-        fillgameboard (i, "O", "blue");
-        // e.target.innerHTML = 'O';
-        // e.target.style.color = "black"; 
+        fillgameboard (i, "O", "blue", "none");
         myboard[i] = 'O';
         gamer = 'O';
-        e.target.style.pointerEvents = "none";
-        // e.target.style.color = "black"; 
       }
-      console.log("myboard " + myboard)
+      console.log("myboard " + myboard + ' ' + turn)
       winner(gamer);
     });
   }
 }
-function winner () {    // check every row, column and daigonal if their cell are the same gamer
+function winner () {    // win opcions 
   for(let i = 0; i < 7; i = i + 3) {     // check every row
-    console.log("winner row")
     if(myboard[i] == myboard[i+1]) {
       if (myboard[i+1] == myboard[i+2]){
         alertwinner();
@@ -71,7 +51,6 @@ function winner () {    // check every row, column and daigonal if their cell ar
     }
   }
   for(let i = 0; i < 3; i++) {          // check every column
-    console.log("winner column")
     if(myboard[i] == myboard[i+3]) {
       if(myboard[i+3] == myboard[i+6]){
         alertwinner();
@@ -90,10 +69,29 @@ function winner () {    // check every row, column and daigonal if their cell ar
   } 
   return;
 }   
-function alertwinner(){
+function alertwinner(){ // display the winner
   console.log('"'+gamer+'" IS THE WINNER')
-  restart();
+  //restart();
 }
-function restart(){
-  console.log("inside restart");
-} 
+function restart(){ // restart the game 
+  for (let i = 0; i < 9; i++) {              //this one restart the gameboard   
+    fillgameboard (i, i+1, "green", '');
+    console.log("inside restart ")
+    myboard[i] = i;
+  }
+  turn = ['a'];
+}
+function gamerop () { // gamer choose x or o to play
+  let gameroption = document.getElementsByClassName('gamer');
+  console.log("gameroption " + gameroption.length)
+  for (let i = 0; i < 2; i++) {                
+    gameroption[i].addEventListener('click', function (e) { 
+      if (gameroption[i].innerHTML == 'X'){
+        console.log("gamer choose X")
+      } else if (gameroption[i].innerHTML == "O"){
+        console.log("gamer choose O")
+      }
+    });
+  }    
+}
+
