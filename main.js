@@ -1,4 +1,4 @@
-var turn = ['a'];
+var turn = ["x"];
 var gamer = '';
 var myboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -26,16 +26,18 @@ function fillgameboard (indexcell, contentcell, colorcell, pointecell) { //displ
 function gameboard () { // select x or o depend on gamer choose
   var button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
   for (let i = 0; i < 9; i++) {
+    console.log("gameboard ready to click")
     button[i].addEventListener('click', function (e) { // on click change to X or O depend on turn
-      turn.push('a');
-      if(turn.length % 2 == 0) {
+      if(turn[0] == "x") {
         fillgameboard (i, "X", "blue", "none");
         myboard[i] = 'X';
         gamer = 'X'; 
+        turn[0] = "o"
       } else {
         fillgameboard (i, "O", "blue", "none");
         myboard[i] = 'O';
         gamer = 'O';
+        turn[0] = "x"
       }
       console.log("myboard " + myboard + ' ' + turn)
       winner(gamer);
@@ -87,11 +89,14 @@ function gamerop () { // gamer choose x or o to play
   for (let i = 0; i < 2; i++) {                
     gameroption[i].addEventListener('click', function (e) { 
       if (gameroption[i].innerHTML == 'X'){
-        console.log("gamer choose X")
+        turn[0] = "x";
+        console.log("gamer choose " + turn[0])
       } else if (gameroption[i].innerHTML == "O"){
-        console.log("gamer choose O")
+        turn[0] = "o";
+        console.log("gamer choose " + turn[0])
       }
     });
-  }    
+  }
+
 }
 
