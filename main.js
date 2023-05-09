@@ -14,27 +14,27 @@ function creategameboard (){ //this one create the gameboard
     var cell = document.createElement('div');
     cell.classList.add('grid-item'); // div class for every gameboard cell  
     board.appendChild(cell);
-    fillgameboard (i, i+1, "red", "pointer");
+    fillgameboard (i, '', "red", "pointer");
   }
 }
 function fillgameboard (indexcell, contentcell, colorcell, pointecell) { //display x or o on the gameboar
-  var cell = document.getElementsByClassName('grid-item'); // gets each gameboard cell
+  let cell = document.getElementsByClassName('grid-item'); // gets each gameboard cell
   cell[indexcell].textContent = contentcell;
   cell[indexcell].style.color = colorcell;
   cell[indexcell].style.pointerEvents = pointecell;
 }
-function gameboard () { // select x or o depend on gamer choose
-  var button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
+function gameboard () { // get x or o depend on gamer choose
+  let button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
   for (let i = 0; i < 9; i++) {
     console.log("gameboard ready to click")
     button[i].addEventListener('click', function (e) { // on click change to X or O depend on turn
       if(turn[0] == "x") {
-        fillgameboard (i, "X", "blue", "none");
+        fillgameboard (i, "X", "", "none");
         myboard[i] = 'X';
         gamer = 'X'; 
         turn[0] = "o"
       } else {
-        fillgameboard (i, "O", "blue", "none");
+        fillgameboard (i, "O", "", "none");
         myboard[i] = 'O';
         gamer = 'O';
         turn[0] = "x"
@@ -44,7 +44,7 @@ function gameboard () { // select x or o depend on gamer choose
     });
   }
 }
-function winner () {    // win opcions 
+function winner () {    // get one of the win options 
   for(let i = 0; i < 7; i = i + 3) {     // check every row
     if(myboard[i] == myboard[i+1]) {
       if (myboard[i+1] == myboard[i+2]){
@@ -74,14 +74,19 @@ function winner () {    // win opcions
 function alertwinner(){ // display the winner
   console.log('"'+gamer+'" IS THE WINNER')
   //restart();
+  document.getElementById('winner').style.visibility = 'visible';
+  document.getElementById('winner').textContent = gamer + " WINS" ;
 }
-function restart(){ // restart the game 
-  for (let i = 0; i < 9; i++) {              //this one restart the gameboard   
-    fillgameboard (i, i+1, "green", '');
+function restart(){  // restart the game 
+  for (let i = 0; i < 9; i++) {              // this one restart the gameboard   
+    fillgameboard (i, '', "green", '');
     console.log("inside restart ")
     myboard[i] = i;
   }
-  turn = ['a'];
+  turn[0] = 'x';
+  document.getElementById('winner').style.visibility = 'hidden';
+  document.getElementById('x').style.backgroundColor = 'white';
+  document.getElementById('o').style.backgroundColor = 'white';
 }
 function gamerop () { // gamer choose x or o to play
   let gameroption = document.getElementsByClassName('gamer');
@@ -90,9 +95,11 @@ function gamerop () { // gamer choose x or o to play
     gameroption[i].addEventListener('click', function (e) { 
       if (gameroption[i].innerHTML == 'X'){
         turn[0] = "x";
+        document.getElementById('x').style.backgroundColor = 'lightgray';
         console.log("gamer choose " + turn[0])
       } else if (gameroption[i].innerHTML == "O"){
         turn[0] = "o";
+        document.getElementById('o').style.backgroundColor = 'lightgray';
         console.log("gamer choose " + turn[0])
       }
     });

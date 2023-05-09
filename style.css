@@ -9,38 +9,93 @@ body{
   --grid-cols: auto;
   --grid-rows: auto;
 }
+nav {
+  min-width: 80%;
+  min-height: 5rem;
+  background-color: lightgray;
+  color: rgb(246, 248, 250);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer {
+    width: 100%;
+    background-color: #1f2937;
+    font-size: 12px;
+    color: #e5e7eb;
+    width: 80%;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+button{
+    border: 1px solid #1f2937;
+    background-color: #1f2937;
+    border-radius: 10px;
+    color: #e5e7eb;
+}
+nav h1 {
+  padding-left: 8px;
+}
+nav img {
+  width: 100px;
+}
 .container {
-  width:auto;
+  width:400px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   background-color: white;
+  margin: 10px;
+}
+.board {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.winner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 260px;
+  position: absolute;
+  transition: 300ms;
+  z-index: 1;
+  visibility: hidden;  /* visible */ 
+  backdrop-filter: blur(2px);
+  font-size: 60px;
+  font-weight: bolder;
+  color: rgb(54, 47, 4);
 }
 .board1 {            /* board style */
   display: grid;
   justify-content: center;
   grid-template-rows: repeat(var(--grid-rows), auto);
   grid-template-columns: repeat(var(--grid-cols), auto);
-  /* row-gap: 1px; */
-  /* border: 1px solid gray; */
   width: 100%;
   box-shadow: rgba(166, 158, 158, 0.35) 0px 5px 15px;
+  position: relative;
+  /* z-index: -1; */
+  cursor: none;
 }
 .grid-item { 
-  background-color:lightcyan; 
-  /* color:lightcyan;  */
   width: 100px;
   height: 80px; 
   border: 1px solid gray;
-  /* margin: 1px;  */
-  /* padding:; */
-  /* gap: 1px; */
   cursor: pointer;
   display: flex;
+  color: black;
   align-items: center;
   justify-content: center;
+  font-size: x-large;
+  font-weight: bolder;
 }
 .controls{
   display: flex;
@@ -55,7 +110,7 @@ body{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  min-width: 50%;
+  width: 120px;
   height: 30px;
   border: 1px solid gray;
   border-radius: 5px;
@@ -73,7 +128,7 @@ body{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 100%;
+  width: 120px;
   height: 30px;
   border: 1px solid gray;
   border-radius: 8px;
@@ -81,7 +136,15 @@ body{
   margin: 5px;
   transition: 100ms;
 }  
-.restart:hover, .gamer:hover {
+.restart:hover, .gamer:hover, .grid-item:hover {
   background-color: rgb(230, 230, 206);
   scale: 1.05;
+}
+@media screen and (max-width: 600px){
+  nav {
+    width: 100%;
+  }
+  footer {
+      width: 100%;
+  }
 }
