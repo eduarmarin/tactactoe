@@ -44,7 +44,7 @@ function gameboard () { // get x or o depend on gamer choose
     });
   }
 }
-function winner () {    // get one of the win options 
+function winner () {    // check the wins options 
   for(let i = 0; i < 7; i = i + 3) {     // check every row
     if(myboard[i] == myboard[i+1]) {
       if (myboard[i+1] == myboard[i+2]){
@@ -94,7 +94,7 @@ function gamerop () { // gamer choose x or o to play
   for (let i = 0; i < 2; i++) {                
     gameroption[i].addEventListener('click', function (e) { 
       if (gameroption[i].innerHTML == 'X'){
-        turn[0] = "x";
+        turn[0] = "x"; 
         document.getElementById('x').style.backgroundColor = 'lightgray';
         console.log("gamer choose " + turn[0])
       } else if (gameroption[i].innerHTML == "O"){
@@ -106,4 +106,22 @@ function gamerop () { // gamer choose x or o to play
   }
 
 }
+function ai () { // code to play against the machine, get the machines choice
+  turn[1] = 'ai';
+  var newarray = [];
+  for(let i = 0; i < 7; i = i + 3) {     // check every row
+    for(let j = 0; j < 3; j++) {
+      newarray[j] = myboard[j+i];
+    }
+  }
+  function compare () {
+    //for (let i = 0; i < 3; i++) {
+      if (newarray[0].includes('X') == newarray[1].includes('X')) {
 
+      } else if (newarray[1].includes('X') == newarray[2].includes('X')) {
+      
+      } else if (newarray[0].includes('X') == newarray[2].includes('X')) {
+      
+      } else { }
+  }
+}
