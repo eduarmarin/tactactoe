@@ -1,6 +1,6 @@
 var turn = ["x"];
 var gamer = '';
-var myboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var myboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
 
 creategameboard()
 gameboard()
@@ -110,18 +110,28 @@ function ai () { // code to play against the machine, get the machines choice
   turn[1] = 'ai';
   var newarray = [];
   for(let i = 0; i < 7; i = i + 3) {     // check every row
-    for(let j = 0; j < 3; j++) {
-      newarray[j] = myboard[j+i];
-    }
+    for(let j = 0; j < 3; j++) {newarray[j] = myboard[j+i];}
+    compare();
   }
+  for(let i = 0; i < 3; i++) {          // check every column
+    for(let j = 0; j < 3; j++) {newarray[j] = myboard[(j + i*3)];}
+    compare();
+  }
+  for(let i = 0; i < 3; i = i + 2) {          // check every column
+    for(let j = 0; j < 3; j++) {
+      if (i == 0) {newarray[j] = myboard[j*4];}
+      else if (i == 2) {newarray[j] = myboard[j + i*2];}
+    }
+    compare();
+  } 
   function compare () {
     //for (let i = 0; i < 3; i++) {
       if (newarray[0].includes('X') == newarray[1].includes('X')) {
-
+        myboard[newarray[2]] = 'O';
       } else if (newarray[1].includes('X') == newarray[2].includes('X')) {
-      
+        myboard[newarray[0]] = 'O';
       } else if (newarray[0].includes('X') == newarray[2].includes('X')) {
-      
+        myboard[newarray[1]] = 'O';
       } else { }
   }
 }
