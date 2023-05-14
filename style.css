@@ -135,8 +135,24 @@ nav img {
   background-color: white;
   margin: 5px;
   transition: 100ms;
+}
+.ai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 50%;
+  background-color: lightcoral;
+  margin: 5px;
+  transition: 100ms;
 }  
-.restart:hover, .gamer:hover, .grid-item:hover {
+.ai:hover, 
+.restart:hover, 
+.gamer:hover, 
+.grid-item:hover {
   background-color: rgb(230, 230, 206);
   scale: 1.05;
 }
