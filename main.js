@@ -1,12 +1,12 @@
 var turn = ["x"];
 var gamer = '';
-var myboard = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+var myboard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 creategameboard()
 gameboard()
 gamerop()
 
-function creategameboard (){ //this one create the gameboard 
+function creategameboard (){ //this one create the gameboard
   var board = document.querySelector('.board1'); // this one get the dom div to add the news gameboard cells
   board.style.setProperty('--grid-rows', 3);    
   board.style.setProperty('--grid-cols', 3);
@@ -24,7 +24,7 @@ function fillgameboard (indexcell, contentcell, colorcell, pointecell) { //displ
   cell[indexcell].style.pointerEvents = pointecell;
 }
 function gameboard () { // get x or o depend on gamer choose
-  let button = document.getElementsByClassName('grid-item'); // gets each gameboard cell 
+  let button = document.getElementsByClassName('grid-item'); // gets each gameboard cell
   for (let i = 0; i < 9; i++) {
     console.log("gameboard ready to click")
     button[i].addEventListener('click', function (e) { // on click change to X or O depend on turn
@@ -32,7 +32,7 @@ function gameboard () { // get x or o depend on gamer choose
         fillgameboard (i, "X", "", "none"); // display the option gamer
         myboard[i] = 'X'; // fill the array with information of gamers
         gamer = 'X'; // gamer let me know how  to show as winner
-        if (turn[1] == "ai") {turn[0] = 'ai';} // check if ai is on 
+        if (turn[1] == "ai") {turn[0] = 'ai';} // check if ai is on
           else {turn[0] = "o"}
       } else {
         fillgameboard (i, "O", "", "none");
@@ -40,12 +40,12 @@ function gameboard () { // get x or o depend on gamer choose
         gamer = 'O';
         turn[0] = "x"
       }
-      console.log("myboard " + myboard + ' ' + turn)
+      //console.log("myboard " + myboard + ' ' + turn)
       winner( );
     });
   }
 }
-function winner () {    // check the wins options 
+function winner () {    // check the wins options
   for(let i = 0; i < 7; i = i + 3) {     // check every row
     if(myboard[i] == myboard[i+1]) {
       if (myboard[i+1] == myboard[i+2]){
@@ -58,36 +58,36 @@ function winner () {    // check the wins options
       if(myboard[i+3] == myboard[i+6]){
         alertwinner();
       }
-    } 
+    }
   }
   if(myboard[0] === myboard[4]) {       // check first diagonal
     if(myboard[4] === myboard[8]){
       alertwinner();
     }
-  } 
+  }
   if(myboard[2] === myboard[4]) {       // check second diagonal
     if(myboard[4] === myboard[6]){
       alertwinner();
     }
-  } 
+  }
   if (turn[0] == 'ai') {ai()} // this one let it go to ai function to the machine options
   //   else {return};
   // return
-}   
+}  
 function alertwinner(){ // display the winner
   console.log('"'+gamer+'" IS THE WINNER')
-  //restart();
   document.getElementById('winner').style.visibility = 'visible'; // show the winner in a new div o hidden the gameboard
   document.getElementById('winner').textContent = gamer + " WINS" ;
 }
-function restart(){  // restart the game 
-  for (let i = 0; i < 9; i++) {              // this one restart the gameboard   
+function restart(){  // restart the game
+  for (let i = 0; i < 9; i++) {              // this one restart the gameboard  
     fillgameboard (i, '', "green", '');
-    console.log("inside restart ")
-    myboard[i] = i;  // restart myboard
   }
-  turn[0] = 'x';
-  turn[1] = ''; // restart ai
+  turn = ['x'];
+  gamer = '';
+  myboard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  console.log("restart " + turn.length)
+  console.log("restart " + myboard.length)
   document.getElementById('winner').style.visibility = 'hidden';
   document.getElementById('x').style.backgroundColor = 'white';
   document.getElementById('o').style.backgroundColor = 'white';
@@ -96,10 +96,10 @@ function restart(){  // restart the game
 function gamerop () { // gamer choose x or o to play
   let gameroption = document.getElementsByClassName('gamer');
   console.log("gameroption " + gameroption.length)
-  for (let i = 0; i < 2; i++) {                
-    gameroption[i].addEventListener('click', function (e) { 
+  for (let i = 0; i < 3; i++) {                
+    gameroption[i].addEventListener('click', function (e) {
       if (gameroption[i].innerHTML == 'X'){
-        turn[0] = "x"; 
+        turn[0] = "x";
         document.getElementById('x').style.backgroundColor = 'lightgray';
         console.log("gamer choose " + turn[0])
       } else if (gameroption[i].innerHTML == "O"){
@@ -109,67 +109,85 @@ function gamerop () { // gamer choose x or o to play
       }
       else if (gameroption[i].innerHTML == "Ai"){
         turn[1] = "ai";
-        document.getElementById('o').style.backgroundColor = 'lightgray';
-        console.log("gamer choose " + turn[0])
+        turn[0] = "x";
+        document.getElementById('x').style.backgroundColor = 'lightgray';
+        document.getElementById('o').style.pointerEvents = 'none';
+        console.log("gamerop ai " + turn)
       }
     });
   }
 
 }
 function ai () { // code to play against the machine, get the machines choice
-  console.log('inside ai')
-  turn[1] = 'ai';  
-  turn[0] = 'x';                                                    // Each row, column and diaonal is taked in
-  //console.log(turn[0].includes('x'))
-  document.getElementById('o').style.pointerEvents = 'none';        // newarray to compare it and choose a option 
-  document.getElementById('x').style.backgroundColor = 'lightgray'; // for the machine 
-  var newarray = [];     // this array will have only three index and would go to comapre directly                                         
+  console.log('inside ai')                                     // Each row, column and diaonal is taked in
+  turn[1] = 'ai';                                              // newarray to compare it and choose a option
+  turn[0] = 'x';                                               // for the machine
+ 
+  var newarray = [];     // this array will have only three index and would go to comapre directly                                        
   for(let i = 0; i < 7; i = i + 3) {     // check every row          
+    newarray = [];
     for(let j = 0; j < 3; j++) {newarray[j] = myboard[j+i];}
-    console.log('row')
+    //console.log('row ' + newarray)
     compare();
   }
   for(let i = 0; i < 3; i++) {          // check every column
+    newarray = [];
     for(let j = 0; j < 3; j++) {newarray[j] = myboard[(i + j*3)];}  // ok
-    console.log('column')
+    //console.log('column')
     compare();
   }
   for(let i = 0; i < 3; i = i + 2) {          // check every diagonal
+    newarray = [];
     for(let j = 0; j < 3; j++) {
-      console.log('diagonal')
+      //console.log('diagonal')
       if (i == 0) {newarray[j] = myboard[j*4];}
       else if (i == 2) {newarray[j] = myboard[j*i + 2];}
     }
     compare();
-  } 
-  function compare () {                                  // fillgameboard (newarray[2], "O", "", "none");
-    console.log('inside compare')
-    if (newarray[0].includes('X') && newarray[1].includes('X')) {
-      console.log(newarray[0].includes('x'))
-      fillgameboard (newarray[2], "O", "", "none");
-      //console.log("compare 1 " + newarray + ' ' + myboard);
-    }  
-    else if (newarray[1].includes('X') && newarray[2].includes('X')) {
-      fillgameboard (newarray[0], "O", "", "none");
-      console.log("compare 2 " + newarray[0]);
-    } 
-    else if (newarray[0].includes('X') && newarray[2].includes('X')) {
-      fillgameboard (newarray[1], "O", "", "none");
-      console.log("compare 3 ") + newarray[1];
-    } 
-    else {
-      if (typeof myboard[4] !== 'string'){
-        fillgameboard (4, "O", "", "none");
-        console.log("inside compare else");
-      }
-      else if (typeof myboard[7] !== 'string'){fillgameboard (7, "O", "", "none");}
-      else if (typeof myboard[1] !== 'string'){fillgameboard (1, "O", "", "none");}
-      else if (typeof myboard[6] !== 'string'){fillgameboard (6, "O", "", "none");}
-      else if (typeof myboard[8] !== 'string'){fillgameboard (8, "O", "", "none");}
-      else if (typeof myboard[3] !== 'string'){fillgameboard (3, "O", "", "none");}
-      else {fillgameboard (5, "O", "", "none");} // if (typeof myboard[5] !== 'string')
-    }
-    return;
   }
-  return;   //MUST GO TO WINNER CHECK IT OUT !!!!!!!!!!!!!!!!
+ 
+  if ( turn[2] == 'o') {
+    fillgameboard (turn[turn.length - 1], "O", "", "none");
+  } else {                           // before here compare newarray for two X's else go forward
+  turn[2] = '';
+  console.log('inside else')
+    if (myboard[4] === 4 ){
+      myboard[4] = 'O';
+      fillgameboard (4, "O", "", "none");
+    }
+    else if (myboard[0] === 0){
+      myboard[0] = 'O';
+      fillgameboard (0, "O", "", "none");
+    }
+    else if (typeof myboard[1] === 'number'){fillgameboard (1, "O", "", "none");myboard[1] = 'O';console.log('1');}
+    else if (typeof myboard[2] === 'number'){fillgameboard (2, "O", "", "none");myboard[2] = 'O';console.log('2');}
+    else if (typeof myboard[6] === 'number'){fillgameboard (6, "O", "", "none");myboard[6] = 'O';}
+    else if (typeof myboard[7] === 'number'){fillgameboard (7, "O", "", "none");myboard[7] = 'O';}
+    else if (typeof myboard[8] === 'number'){fillgameboard (8, "O", "", "none");myboard[8] = 'O';}
+    else if (typeof myboard[3] === 'number'){fillgameboard (3, "O", "", "none");myboard[3] = 'O';}
+    else {fillgameboard (5, "O", "pink", "none"); myboard[5] = 'O';} // if (typeof myboard[5] !== 'string')
+  }
+
+  function compare () {
+    console.log('new array compare: ' + newarray)
+    if (newarray[0] == 'X' && newarray[1] == 'X') {
+      if(typeof newarray[2] !== 'string'){
+        turn[2] = 'o';                      //turn[2] get information to go forward to fill by the machine
+        turn.push(newarray[2]);             //this push save the position to fill with o and the machine no let it win
+      }  
+    }  
+    else if (newarray[1] == 'X' && newarray[2] == 'X') {
+      if(typeof newarray[0] !== 'string'){
+        turn[2] = 'o';
+        turn.push(newarray[0]);
+      }
+    }
+    else if (newarray[0] == 'X' && newarray[2] == 'X') {
+      if(typeof newarray[1] !== 'string'){
+        turn[2] = 'o';
+        turn.push(newarray[1]);
+      }
+    }
+  }
+  console.log('turn: ' + turn)
 }
