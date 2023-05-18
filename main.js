@@ -6,7 +6,7 @@ creategameboard()
 gameboard()
 gamerop()
 
-function creategameboard (){ //this one create the gameboard
+function creategameboard () { //this one create the gameboard
   var board = document.querySelector('.board1'); // this one get the dom div to add the news gameboard cells
   board.style.setProperty('--grid-rows', 3);    
   board.style.setProperty('--grid-cols', 3);
@@ -32,16 +32,14 @@ function gameboard () { // get x or o depend on gamer turn, also detect if machi
         fillgameboard (i, "X", "", "none"); // display the option gamer
         myboard[i] = 'X'; // fill the array with information of gamers
         gamer = 'X'; // gamer lets know the winner
-        if (turn[1] == "ai") { // check if ai is on
-          turn[0] = 'ai';
-          } else {turn[0] = "o"}
+        turn[0] = "o"
       } else {
         fillgameboard (i, "O", "", "none");
         myboard[i] = 'O';
         gamer = 'O';
         turn[0] = "x"
       }
-      winner();    // here winner
+      winner();      // here winner
     });
   }
 }
@@ -49,7 +47,8 @@ function winner () {    // check the wins options
   for(let i = 0; i < 7; i = i + 3) {     // check every row
     if(myboard[i] == myboard[i+1]) {
       if (myboard[i+1] == myboard[i+2]){
-        //if(myboard[i] == 'O') {gamer = 'Ai';}
+        if(myboard[i] == 'O') {gamer = 'Ai';}
+        turn[1] = 'winner';
         alertwinner();
       }
     }
@@ -57,41 +56,42 @@ function winner () {    // check the wins options
   for(let i = 0; i < 3; i++) {          // check every column
     if(myboard[i] == myboard[i+3]) {
       if(myboard[i+3] == myboard[i+6]){
-        //if(myboard[i] == 'O') {gamer = 'Ai';}
+        if(myboard[i] == 'O') {gamer = 'Ai';}
+        turn[1] = 'winner';
         alertwinner();
       }
     }
   }
   if(myboard[0] === myboard[4]) {       // check first diagonal
     if(myboard[4] === myboard[8]){
-      //if(myboard[i] == 'O') {gamer = 'Ai';}
+      if(myboard[8] == 'O') {gamer = 'Ai';}
+      turn[1] = 'winner';
       alertwinner();
     }
   }
   if(myboard[2] === myboard[4]) {       // check second diagonal
     if(myboard[4] === myboard[6]){
-      //if(myboard[i] == 'O') {gamer = 'Ai';}
+      if(myboard[6] == 'O') {gamer = 'Ai';}
+      turn[1] = 'winner';
       alertwinner();
     }
   }
-  if (turn[0] == 'ai') {ai()} // this one let it go to ai function to the machine options
-  //   else {return};
+  if (turn[1] == 'ai') {ai()} // this one let it go to ai function to the machine options
+  //else {alertwinner()};
   //return
 }  
-function alertwinner(){ // display the winner
+function alertwinner() { // display the winner
   console.log('"'+gamer+'" IS THE WINNER')
   document.getElementById('winner').style.visibility = 'visible'; // show the winner in a new div o hidden the gameboard
   document.getElementById('winner').textContent = gamer + " WINS" ;
 }
-function restart(){  // restart the game only after cliked the button
+function restart() {  // restart the game only after cliked the button
   for (let i = 0; i < 9; i++) {              // this one restart the gameboard  
     fillgameboard (i, '', "green", '');
   }
   turn = ['x'];
   gamer = '';
   myboard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  console.log("restart " + turn.length)
-  console.log("restart " + myboard.length)
   document.getElementById('winner').style.visibility = 'hidden';
   document.getElementById('x').style.backgroundColor = 'white';
   document.getElementById('o').style.backgroundColor = 'white';
@@ -122,8 +122,9 @@ function gamerop () { // gamer choose x or o or ai to play
   }
 
 }
-function ai () { // code to play against the machine, get the machines choice
-  console.log('inside ai')                                     // Each row, column and diaonal is taked in
+function ai () { // code to play against the machine, get the machines choice   
+  
+  gamer = 'Ai';                                                // Each row, column and diaonal is taked in
   turn[1] = 'ai';                                              // newarray to compare it and choose a option
   turn[0] = 'x';                                               // for the machine
  
@@ -197,5 +198,6 @@ function ai () { // code to play against the machine, get the machines choice
       } else { turn[2] = 99 ; }
     }
   }
-  console.log('turn: ' + turn)
+  console.log('turn: ' + turn);
+  //winner();
 }
